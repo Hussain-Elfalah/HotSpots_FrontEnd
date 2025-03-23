@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface LoadingSpinnerProps {
   size?: 'small' | 'medium' | 'large';
@@ -10,7 +10,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'medium', 
   message 
 }) => {
-  const { theme } = useTheme();
+  const { dir, fontFamily } = useLanguage();
   
   // Size classes based on the size prop
   const sizeClasses = {
@@ -20,7 +20,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className={`flex flex-col items-center justify-center ${fontFamily}`} dir={dir}>
       <div className={`loader ${sizeClasses[size]}`}></div>
       {message && (
         <p className="mt-4 text-gray-700 dark:text-gray-300 font-medium">{message}</p>

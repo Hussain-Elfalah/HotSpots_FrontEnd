@@ -3,7 +3,6 @@ import SpotList from '../components/explore/SpotList';
 import SearchFilters from '../components/explore/SearchFilters';
 import { useLanguage } from '../context/LanguageContext';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
-import ButtonHover from '../components/ui/ButtonHover';
 
 interface Spot {
   id: string;
@@ -94,15 +93,13 @@ const Explore = () => {
     }, 1000);
   }, [t]); // Add t as dependency to update when language changes
   
-  const handleSearch = (filters: any) => {
+  const handleSearch = (_: any) => {
     setLoading(true);
     
-    // محاكاة عملية البحث
+    // Will be implemented with real search logic when backend is ready
     setTimeout(() => {
-      // هنا سيتم تنفيذ البحث الفعلي عندما نقوم بإعداد الخلفية
-      // حالياً سنقوم بتصفية البيانات الوهمية الموجودة لدينا
       setLoading(false);
-    }, 800);
+    }, 1500);
   };
 
   return (

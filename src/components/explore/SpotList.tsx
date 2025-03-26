@@ -61,7 +61,7 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
           className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
         />
         {spot.category && (
-          <span className="absolute top-3 right-3 bg-white dark:bg-gray-700 bg-opacity-90 text-blue-dark dark:text-blue-light text-sm px-3 py-1 rounded-full">
+          <span className="absolute top-3 right-3 bg-red-primary text-white text-sm px-3 py-1 rounded-full shadow-md">
             {spot.category}
           </span>
         )}

@@ -1,7 +1,8 @@
 // src/components/explore/SearchFilters.tsx
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import SearchButton from '../ui/SearchButton';
+import { motion } from 'framer-motion';
 
 interface SearchFiltersProps {
   onSearch?: (filters: any) => void;
@@ -10,75 +11,150 @@ interface SearchFiltersProps {
 const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch }) => {
   const { t, dir, fontFamily } = useLanguage();
   const [location, setLocation] = useState('');
-  const [category, setCategory] = useState('');
-  const [rating, setRating] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
-  const handleSearch = () => {
+  const categories = [
+    { value: 'cafe', label: t('category_cafe') },
+    { value: 'restaurant', label: t('category_restaurant') },
+    { value: 'park', label: t('category_park') },
+    { value: 'museum', label: t('category_museum') },
+    { value: 'shopping', label: t('category_shopping') },
+    { value: 'sports', label: t('category_sports') }
+  ];
+
+  const ratings = [5, 4, 3, 2, 1];
+
+  // Search function
+  const performSearch = useCallback(() => {
+    console.log('Performing search with:');
+    console.log('- Categories:', selectedCategories);
+    console.log('- Rating:', selectedRating);
+    console.log('- Location:', location);
+    
     const filters = {
       location,
-      category,
-      rating: rating ? parseInt(rating, 10) : undefined
+      categories: selectedCategories,
+      rating: selectedRating
     };
     
     if (onSearch) {
       onSearch(filters);
     }
+  }, [location, selectedCategories, selectedRating, onSearch]);
+
+  // Toggle a category in the selectedCategories array
+  const toggleCategory = (category: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const handleRatingClick = (rating: number) => {
+    // If the same rating is clicked twice, clear the selection
+    // Otherwise set the clicked rating as the minimum
+    setSelectedRating(prev => prev === rating ? null : rating);
+  };
+
+  const handleSearch = () => {
+    performSearch();
+  };
+
+  const handleReset = () => {
+    setLocation('');
+    setSelectedCategories([]);
+    setSelectedRating(null);
+    
+    // Only trigger search after state update is complete
+    setTimeout(() => {
+      if (onSearch) {
+        onSearch({ location: '', categories: [], rating: null });
+      }
+    }, 0);
   };
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 ${fontFamily}`} dir={dir}>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+    <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 mb-4 ${fontFamily}`} dir={dir}>
+      <div className="space-y-4">
+        {/* Search Input */}
         <div>
-          <label htmlFor="location" className="block text-gray-700 dark:text-gray-300 mb-2">{t('location')}</label>
+          <label htmlFor="location" className="block text-gray-700 dark:text-gray-300 mb-1.5 font-medium">{t('location')}</label>
           <input
             type="text"
             id="location"
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             placeholder={t('enter_location')}
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
-        
+
+        {/* Categories */}
         <div>
-          <label htmlFor="category" className="block text-gray-700 dark:text-gray-300 mb-2">{t('category')}</label>
-          <select
-            id="category"
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">{t('all_categories')}</option>
-            <option value="cafe">{t('category_cafe')}</option>
-            <option value="restaurant">{t('category_restaurant')}</option>
-            <option value="park">{t('category_park')}</option>
-            <option value="museum">{t('category_museum')}</option>
-            <option value="shopping">{t('category_shopping')}</option>
-          </select>
+          <label className="block text-gray-700 dark:text-gray-300 mb-1.5 font-medium">{t('category')}</label>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <motion.button
+                key={category.value}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => toggleCategory(category.value)}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors duration-200
+                  ${selectedCategories.includes(category.value)
+                    ? 'bg-red-primary text-white'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  }`}
+                aria-pressed={selectedCategories.includes(category.value)}
+              >
+                {selectedCategories.includes(category.value) && (
+                  <span className="mr-1">✓</span>
+                )}
+                {category.label}
+              </motion.button>
+            ))}
+          </div>
         </div>
-        
+
+        {/* Rating Filter */}
         <div>
-          <label htmlFor="rating" className="block text-gray-700 dark:text-gray-300 mb-2">{t('minimum_rating')}</label>
-          <select
-            id="rating"
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-            value={rating}
-            onChange={(e) => setRating(e.target.value)}
-          >
-            <option value="">{t('any_rating')}</option>
-            <option value="3">3+</option>
-            <option value="4">4+</option>
-            <option value="4.5">4.5+</option>
-          </select>
+          <label className="block text-gray-700 dark:text-gray-300 mb-1.5 font-medium">{t('minimum_rating')}</label>
+          <div className="flex items-center gap-2">
+            {ratings.map((rating) => (
+              <motion.button
+                key={rating}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => handleRatingClick(rating)}
+                className={`text-xl transition-colors duration-200
+                  ${selectedRating !== null && rating <= selectedRating
+                    ? 'text-yellow-500'
+                    : 'text-gray-300 dark:text-gray-600 hover:text-yellow-400'
+                  }`}
+              >
+                ★
+              </motion.button>
+            ))}
+          </div>
         </div>
       </div>
-      
-      <div className="flex justify-center">
+
+      {/* Action Buttons */}
+      <div className="mt-5 grid grid-cols-2 gap-3">
         <SearchButton 
           text={t('search')} 
           onClick={handleSearch}
-          className="w-full md:w-auto" 
+          className="w-full" 
         />
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={handleReset}
+          className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200 w-full"
+        >
+          {t('reset')}
+        </motion.button>
       </div>
     </div>
   );

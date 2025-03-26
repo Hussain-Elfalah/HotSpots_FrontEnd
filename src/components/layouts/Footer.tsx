@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
+import logo from '../../assets/SVG/Asset 15.svg';
 
 interface SocialIconProps {
   url: string;
@@ -21,10 +22,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* الجزء الأول */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">
-              <span className="text-white">Hot</span>
-              <span className="text-cream">Spots</span>
-            </h3>
+            <Link to="/" className="inline-block mb-4">
+              <img src={logo} alt="Hotspots Logo" className=" h-8 sm:h-12 md:h-18" />
+            </Link>
             <p className="mb-4">{t('discover')}</p>
             <div className={`flex ${dir === 'rtl' ? 'space-x-reverse' : ''} space-x-4`}>
               <SocialIcon url="#" icon="facebook" />

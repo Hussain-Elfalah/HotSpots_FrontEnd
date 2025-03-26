@@ -64,7 +64,7 @@ const translations: Record<Language, Record<string, string>> = {
     'most_popular': 'Most Popular',
     'search_placeholder': 'Search for places...',
     'search_spot': 'Search Spots',
-    'reset': 'Reset',
+    'reset': 'Reset Filters',
     'view_on_map': 'View on Map',
     
     // Spot details
@@ -322,14 +322,14 @@ const translations: Record<Language, Record<string, string>> = {
     'location': 'الموقع',
     'price_range': 'نطاق السعر',
     'apply_filters': 'تطبيق الفلاتر',
-    'reset_filters': 'إعادة ضبط',
+    'reset_filters': 'إعادة تعيين',
     'sort_by': 'ترتيب حسب',
     'newest': 'الأحدث',
     'highest_rated': 'الأعلى تقييماً',
     'most_popular': 'الأكثر شعبية',
     'search_placeholder': 'ابحث عن أماكن...',
     'search_spot': 'البحث عن الأماكن',
-    'reset': 'إعادة ضبط',
+    'reset': 'إعادة تعيين',
     
     // Spot details
     'spot_details': 'تفاصيل المكان',

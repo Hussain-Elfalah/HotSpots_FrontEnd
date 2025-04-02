@@ -169,8 +169,8 @@ const Explore = () => {
   };
 
   return (
-    <div className={`container mx-auto px-4 py-8 mt-16 ${fontFamily}`} dir={dir}>
-      <h1 className="text-3xl font-bold mb-8 text-center dark:text-gray-50">{t('explore_title')}</h1>
+    <div className={`w-full mx-auto px-2 sm:px-4 py-6 sm:py-8 mt-12 sm:mt-16 ${fontFamily} max-w-screen-xl overflow-x-hidden`} dir={dir}>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8 text-center dark:text-gray-50">{t('explore_title')}</h1>
       <SearchFilters onSearch={handleSearch} />
       
       <div className="relative min-h-[300px]">

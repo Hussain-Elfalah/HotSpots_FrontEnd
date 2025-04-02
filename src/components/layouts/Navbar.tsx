@@ -7,6 +7,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 import LoginButton from '../ui/LoginButton';
 import SignUpButton from '../ui/SignUpButton';
+import logo from '../../assets/SVG/Asset 12.svg';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,8 +35,8 @@ const Navbar = () => {
 
   // Determine appropriate text color for the current mode and scroll state
   const navbarBgClass = isScrolled 
-    ? 'bg-white/90 dark:bg-gray-900/90 shadow-lg backdrop-blur-lg py-3' 
-    : 'bg-transparent py-4';
+    ? 'bg-white/90 dark:bg-gray-900/90 shadow-lg backdrop-blur-lg' 
+    : 'bg-transparent';
 
   const navItemClass = isScrolled
     ? ''
@@ -44,14 +45,14 @@ const Navbar = () => {
   return (
     <nav 
       className={`fixed w-full z-50 transition-all duration-300 ${navbarBgClass} ${fontFamily} ${dir === 'rtl' ? 'text-right' : 'text-left'}`}
+      style={{ height: isScrolled ? '80px' : '90px' }}
       dir={dir}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center">
+      <div className="container mx-auto px-4 h-full">
+        <div className="flex justify-between items-center h-full">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold transition-all duration-300 hover:scale-105">
-            <span className={isScrolled ? 'text-blue-dark dark:text-blue-light' : 'text-blue-dark dark:text-cream'}>Hot</span>
-            <span className={isScrolled ? 'text-red-primary' : 'text-red-primary'}>Spots</span>
+          <Link to="/" className="flex-shrink-0 transition-all duration-300 hover:scale-105">
+            <img src={logo} alt="Hotspots Logo" className=" h-8 sm:h-12 md:h-18" />
           </Link>
 
           {/* Desktop Navigation */}

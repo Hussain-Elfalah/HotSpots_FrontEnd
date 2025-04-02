@@ -1,8 +1,6 @@
 // src/components/home/About.tsx
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
-import { Link } from 'react-router-dom';
-import ButtonHover from '../ui/ButtonHover';
 
 interface FeatureCardProps {
   icon: string;

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import ButtonHover from '../components/ui/ButtonHover';

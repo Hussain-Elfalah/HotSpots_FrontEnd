@@ -110,10 +110,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📧 Contact
 
-Project Link: [https://github.com/yourusername/hotspots](https://github.com/yourusername/hotspots)
-
----
-
-<div align="center">
-  Made with ❤️ by YourTeamName
-</div>
+Project Link: [https://hussain-elfalah.github.io/HotSpots_FrontEnd/]

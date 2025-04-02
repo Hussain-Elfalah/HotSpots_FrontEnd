@@ -1,7 +1,7 @@
 # HotSpots ✨
 
 <div align="center">
-  <img src="public/Asset 1.svg" alt="HotSpots Logo" width="200"/>
+  <img src="../../assets/SVG/Asset 15.svg" alt="HotSpots Logo" width="200"/>
   <p>Discover the world's most exciting destinations</p>
 </div>
 

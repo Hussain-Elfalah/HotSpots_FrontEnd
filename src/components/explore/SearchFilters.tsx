@@ -119,7 +119,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch }) => {
 
         {/* Rating Filter */}
         <div>
-          <label className="block text-gray-700 dark:text-gray-300 mb-1 sm:mb-1.5 text-sm sm:text-base font-medium">{t('minimum_rating')}</label>
+          {/* <label className="block text-gray-700 dark:text-gray-300 mb-1 sm:mb-1.5 text-sm sm:text-base font-medium">{t('minimum_rating')}</label> */}
           <div className="flex items-center gap-1 sm:gap-2">
             {ratings.map((rating) => (
               <motion.button
